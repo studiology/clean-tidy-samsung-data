@@ -1,7 +1,6 @@
 ---
 title: "Getting and Cleaning Data "
-author: "Your name here"
-date: "The date here"
+author: "Adam Kent"
 output:
   html_document:
     keep_md: yes

@@ -20,10 +20,11 @@ subjecttrain <- fread('UCI HAR Dataset/train/subject_train.txt',data.table = FAL
 subjecttest <- fread('UCI HAR Dataset/test/subject_test.txt',data.table = FALSE)
 ytrain <- fread('UCI HAR Dataset/train/y_train.txt',data.table = FALSE)
 ytest <- fread('UCI HAR Dataset/test/y_test.txt',data.table = FALSE)
-# convert single column dataframes to factors
+# convert labels in dataframes to factors
 subjecttest <- factor(subjecttest$V1,levels=1:30,labels=paste0('subject',1:30))
 subjecttrain <- factor(subjecttrain$V1,levels=1:30,labels=paste0('subject',1:30))
-
+ytrain <- factor(ytrain$V1, levels = actLabels$V1, labels = tolower(actLabels$V2))
+ytest <- factor(ytest$V1, levels = actLabels$V1, labels = tolower(actLabels$V2))
 
 # determine which features/columns we're interested in
 if(useLaF == TRUE) {
@@ -59,6 +60,8 @@ traindt <- data.table(traindf)
 # remove unneeded data.frames
 rm(testdf)
 rm(traindf)
+rm(actLabels)
+rm(featLabels)
 
 # add columns for subject and activity
 testdt$subject <- subjecttest
@@ -66,9 +69,11 @@ testdt$activity <- ytest$V1
 traindt$subject <- subjecttrain
 traindt$activity <- ytrain$V1
 
-# rbind both sets together
+# rbind both sets together then remove the smaller versions
 fulldt <- rbind(testdt,traindt)
+rm(testdt)
+rm(traindt)
 
-
+# create tidy dataset
 
 

@@ -27,7 +27,7 @@ data.frame as strings and then converted to numerics using `lapply`.
 The same thing can be achieved (though *MUCH* slower) using the following code
 (in this case, data can be read in directly as numeric - but it still takes
 around 100x longer than using LaF):
-
+```{r, eval=FALSE}
         widths <- ifelse(grepl('(mean|std)\\(', featLabels[[2]]), 16, -16)
         col.names <- grep('(mean|std)\\(', featLabels[[2]], value = TRUE)
         col.names <- gsub('(m|s)(ean|td)', '\\U\\1\\E\\2',
@@ -38,7 +38,7 @@ around 100x longer than using LaF):
         traindata <- read.fwf('UCI HAR Dataset/train/X_train.txt', widths,
                               col.names = col.names, buffersize = 100,
                               colClasses='numeric')
-
+```
 ## data.table
 ## tidyr
 ## dplyr 

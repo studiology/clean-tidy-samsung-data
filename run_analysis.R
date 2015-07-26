@@ -65,9 +65,9 @@ rm(featLabels)
 
 # add columns for subject and activity
 testdt$subject <- subjecttest
-testdt$activity <- ytest$V1
+testdt$activity <- ytest
 traindt$subject <- subjecttrain
-traindt$activity <- ytrain$V1
+traindt$activity <- ytrain
 
 # rbind both sets together then remove the smaller versions
 fulldt <- rbind(testdt,traindt)
@@ -75,5 +75,10 @@ rm(testdt)
 rm(traindt)
 
 # create tidy dataset
+longdt <- gather(fulldt,variable,value,-activity,-subject)
+longdt <- group_by(longdt,subject,activity,variable) %>% 
+        summarise(mean(value))
+widedt <- spread(longdt,variable,`mean(value)`,drop=FALSE)
+
 
 

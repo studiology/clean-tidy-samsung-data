@@ -1,5 +1,7 @@
 ---
 output: 
+  md_document:
+    variant: markdown_github
   html_document: 
     highlight: zenburn
     keep_md: yes

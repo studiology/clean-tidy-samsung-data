@@ -1,0 +1,40 @@
+Instructions
+============
+
+1.  Merges the training and the test sets to create one data set.
+2.  Extracts only the measurements on the mean and standard deviation for each measurement.
+3.  Uses descriptive activity names to name the activities in the data set
+4.  Appropriately labels the data set with descriptive variable names.
+5.  From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+R packages being used
+=====================
+
+LaF
+---
+
+run\_analysis.R relies on LaF to read in the large fixed width files quickly and without massive memory overhead. Unfortunately it can't (yet) read numeric data in scientific notation, so all required columns are initially read into a data.frame as strings and then converted to numerics using `lapply`.
+
+The same thing can be achieved (though *MUCH* slower) using the following code (in this case, data can be read in directly as numeric - but it still takes around 100x longer than using LaF):
+
+``` r
+        widths <- ifelse(grepl('(mean|std)\\(', featLabels[[2]]), 16, -16)
+        col.names <- grep('(mean|std)\\(', featLabels[[2]], value = TRUE)
+        col.names <- gsub('(m|s)(ean|td)', '\\U\\1\\E\\2',
+                          gsub('([-()])', '', col.names), perl=T)
+        testdata <- read.fwf('UCI HAR Dataset/test/X_test.txt', widths, 
+                             col.names = col.names, buffersize = 100,
+                             colClasses='numeric')
+        traindata <- read.fwf('UCI HAR Dataset/train/X_train.txt', widths,
+                              col.names = col.names, buffersize = 100,
+                              colClasses='numeric')
+```
+
+data.table
+----------
+
+tidyr
+-----
+
+dplyr
+-----

@@ -1,5 +1,5 @@
 ---
-title: "Getting and Cleaning Data "
+title: "Getting and Cleaning Data Assignment"
 author: "Adam Kent"
 output:
   md_document:
@@ -9,7 +9,7 @@ output:
 ---
 
 ## Project Description
-Short description of the project
+The [Samsung sensor data] 
 
 ##Study design and data processing
 
@@ -25,9 +25,9 @@ Some additional notes (if avaialble, otherwise you can leave this section out).
 Description on how to create the tidy data file (1. download the data, ...)/
 
 ###Cleaning of the data
-Short, high-level description of what the cleaning script does. [link to the readme document that describes the code in greater detail]()
+[run_analysis.R](run_analysis.R) takes data files which are assumed to have already been downloaded and unzipped into a 'UCI HAR Dataset/' subdirectory of the current working directory, unifies the test and training datasets, extracts only data on means and standard deviations of measurements (excluding mean frequencies of frequency domain measurements) and creates a tidy dataset of the means of each of these values when grouped by subject and activity. For more detail, see [the readme document](README.md)
 
-##Description of the variables in the tidy_data.txt file
+##Description of the variables in the tidied.wide.txt file
 General description of the file including:
  - Dimensions of the dataset
  - Summary of the data
